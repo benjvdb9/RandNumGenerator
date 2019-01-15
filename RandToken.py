@@ -7,6 +7,7 @@ class Rand:
         self.__steps = [1, 1, 1]
         self.newSeed()
         self.__rand = self.__seed
+        self.__charlist = self.getCharList()
 
     #Crée un nouveau seed en fonction du seed_mode
     def newSeed(self):
@@ -75,4 +76,28 @@ class Rand:
         rand2 = rand1 + start
         return rand2
 
+    def generateToken(self):
+        chars = []
+        for i in range(10):
+            character = self.getTokenChar()
+            chars += str(character)
+
+        token = ''.join(chars)
+        return token
+
+    def getTokenChar(self):
+        index = self.range(35)
+        return self.__charlist[index]
+
+    def getCharList(self):
+        charlist = []
+        alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+        for letter in alphabet:
+            charlist += letter
+            
+        for i in range(10):
+            charlist += [i]
+
+        return charlist
+    
 test = Rand()
