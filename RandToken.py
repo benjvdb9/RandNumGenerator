@@ -100,10 +100,10 @@ class Rand:
         while i <= 100:
           self.range( 36)
           i+=1
-          stop_time = time()
-          print(stop_time)
-          temps_exe = (stop_time - start_time )
 
+        stop_time = time()
+        print(stop_time)
+        temps_exe = (stop_time - start_time)
         return temps_exe
     
 test = Rand()
