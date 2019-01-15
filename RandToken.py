@@ -30,7 +30,9 @@ class Rand:
             func()
 
     def newtonStep(self):
+      #recupère un seed et on élève au carré
         complete = self.__rand ** 2
+      #
         middle = (complete % 10**12) // 10**4 #Modulo garde les 12 derniers chiffres
         complete = middle ** 2
         middle = (complete % 10**12) // 10**4 #Division efface les 4 derniers chiffres
@@ -54,4 +56,19 @@ class Rand:
         rand2 = rand1 + start
         return rand2
 
+    #temps d'execution pour la generation de 100  sequences
+    def exe_time(self):
+      start_time = time()
+      print(start_time)
+
+      i=1
+      while i <= 100:
+        self.range( 36)
+        i=i+1
+      stop_time = time()
+      print(stop_time)
+      temps_exe = (stop_time - start_time )
+      return temps_exe
+
 test = Rand()
+''
