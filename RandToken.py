@@ -1,9 +1,10 @@
 from time import time
+from MersenneTwister import Twister
 
 class Rand:
     def __init__(self):
-        self.__seed_mode = 2
-        self.__steps = [1, 1, 1]
+        self.__seed_mode = 1
+        self.__steps = [2]
         self.newSeed()
         self.__rand = self.__seed
         self.__charlist = self.getCharList()
@@ -12,9 +13,13 @@ class Rand:
         if self.__seed_mode == 1:
             self.milliSeed()
         elif self.__seed_mode == 2:
+            self.milliSeed()
+            self.__rand = self.__seed
+        elif self.__seed_mode == 3:
             self.timeSeed()
         else:
-            self.__seed = 0
+            self.timeSeed()
+            self.__rand = self.__seed
 
     def milliSeed(self):
         self.__seed = int((time() % 1) * 100000000 // 1)
@@ -25,7 +30,7 @@ class Rand:
         self.__seed = time_seed // 10**(seed_length - 8)
 
     def applySteps(self):
-        steps_dict = {1: self.newtonStep}
+        steps_dict = {1: self.newtonStep, 2: self.mersenneTwister}
         for step in self.__steps:
             func = steps_dict[step]
             func()
@@ -36,6 +41,13 @@ class Rand:
         complete = middle ** 2
         middle = (complete % 10**12) // 10**4 #Division efface les 4 derniers chiffres
         self.__rand = middle
+
+    def mersenneTwister(self):
+        twis = Twister()
+        twis.initialize_generator(self.__seed)
+        rand = twis.extract_number()
+        rand = (rand % 10**9) // 10
+        self.__rand = rand
 
     def getRand(self):
         return self.__rand
@@ -78,5 +90,20 @@ class Rand:
             charlist += [i]
 
         return charlist
+    
+    #temps d'execution pour la generation de 100  sequences
+    def exe_time(self):
+        start_time = time()
+        print(start_time)
+
+        i=1
+        while i <= 100:
+          self.range( 36)
+          i+=1
+          stop_time = time()
+          print(stop_time)
+          temps_exe = (stop_time - start_time )
+
+        return temps_exe
     
 test = Rand()
