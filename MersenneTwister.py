@@ -25,6 +25,7 @@ class Twister:
         "Initialize the generator from a seed"
         self.MT[0] = seed
         for i in range(1,624):
+            #print("{}:".format(i), self.MT[i-1] >> 30)
             self.MT[i] = ((1812433253 * self.MT[i-1]) ^
                           ((self.MT[i-1] >> 30) + i)) & self.bitmask_1
 

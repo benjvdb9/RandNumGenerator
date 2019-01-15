@@ -1,4 +1,4 @@
-from time import time
+from time import time, clock
 from MersenneTwister import Twister
 
 class Rand:
@@ -23,6 +23,7 @@ class Rand:
             self.__rand = self.__seed
         elif self.__seed_mode == 3:
             self.timeSeed()
+            self.__rand = self.__seed
         else:
             self.timeSeed()
             self.__rand = self.__seed
@@ -47,6 +48,8 @@ class Rand:
     #Middle Square Methode:
     #   Mettre notre seed au carré et garder les 8 chiffres au milieu 
     def newtonStep(self):
+        #print("Seed:", self.__seed)
+        #print("Rand:", self.__rand)
         complete = self.__rand ** 2
 
         # le Modulo 10**12 garde les 12 derniers chiffres et
