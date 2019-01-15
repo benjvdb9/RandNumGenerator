@@ -21,6 +21,8 @@ class Twister:
         # To get last 31 bits
         self.bitmask_3 = (2 ** 31) - 1
 
+        self.num = 0
+
     def initialize_generator(self, seed):
         "Initialize the generator from a seed"
         self.MT[0] = seed
@@ -54,6 +56,9 @@ class Twister:
             self.MT[i] = self.MT[(i + 397) % 624] ^ (y >> 1)
             if y % 2 != 0:
                 self.MT[i] ^= 2567483615
+                
+    def getIndex(self):
+        return self.index
 
 ##if __name__ == "__main__":
 ##    from datetime import datetime

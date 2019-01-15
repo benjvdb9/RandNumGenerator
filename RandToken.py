@@ -3,11 +3,12 @@ from MersenneTwister import Twister
 
 class Rand:
     def __init__(self):
-        self.__seed_mode = 1
+        self.__seed_mode = 2
         self.__steps = [2]
         self.newSeed()
         self.__rand = self.__seed
         self.__charlist = self.getCharList()
+        self.__twister_exist = False
         
 
     #Crée un seed sur base du seed_mode
@@ -48,8 +49,8 @@ class Rand:
     #Middle Square Methode:
     #   Mettre notre seed au carré et garder les 8 chiffres au milieu 
     def newtonStep(self):
-        #print("Seed:", self.__seed)
-        #print("Rand:", self.__rand)
+        print("Seed:", self.__seed)
+        print("Rand:", self.__rand)
         complete = self.__rand ** 2
 
         # le Modulo 10**12 garde les 12 derniers chiffres et
@@ -62,9 +63,12 @@ class Rand:
 
     #Application du Mersenne Twister
     def mersenneTwister(self):
-        twis = Twister()
-        twis.initialize_generator(self.__seed)
-        rand = twis.extract_number()
+        import pdb;pdb.set_trace()
+        if not self.__twister_exist:
+            self.__twis = Twister()
+            self.__twister_exist = True
+            self.__twis.initialize_generator(self.__seed)
+        rand = self.__twis.extract_number()
         rand = (rand % 10**9) // 10
         self.__rand = rand
 
