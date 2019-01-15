@@ -20,7 +20,7 @@ def  randomFloat():
                  return (random()/9999999999)
 
 tableau = []
-for i in range(100000) :
+for i in range(100) :
     a = random()
     tableau.append(a)
     #print(tableau)
