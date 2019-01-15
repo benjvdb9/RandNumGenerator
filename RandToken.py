@@ -2,7 +2,7 @@ from time import time
 
 class Rand:
     def __init__(self):
-        self.__seed_mode = 2
+        self.__seed_mode = 1
         self.__steps = [1, 1, 1]
         self.newSeed()
         self.__rand = self.__seed
@@ -11,6 +11,9 @@ class Rand:
         if self.__seed_mode == 1:
             self.milliSeed()
         elif self.__seed_mode == 2:
+            self.milliSeed()
+            self.__rand = self.__seed
+        elif self.__seed_mode == 3:
             self.timeSeed()
         else:
             self.__seed = 0
@@ -30,11 +33,16 @@ class Rand:
             func()
 
     def newtonStep(self):
+        #print("Seed:", self.getSeed())
+        #print("Rand:", self.getRand())
         complete = self.__rand ** 2
         middle = (complete % 10**12) // 10**4 #Modulo garde les 12 derniers chiffres
         complete = middle ** 2
         middle = (complete % 10**12) // 10**4 #Division efface les 4 derniers chiffres
         self.__rand = middle
+
+    def getSeed(self):
+        return self.__seed
 
     def getRand(self):
         return self.__rand

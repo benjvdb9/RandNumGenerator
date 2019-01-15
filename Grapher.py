@@ -48,6 +48,9 @@ mean2 = stat.mean(points_y)
 median1 = stat.median(points_x)
 median2 = stat.median(points_y)
 
+plt.plot(mean1, mean2, 'y*')
+plt.annotate('MEAN', (mean1, mean2))
+
 try:
     mode1 = stat.mode(points_x)
 except:
