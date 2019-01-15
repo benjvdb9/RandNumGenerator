@@ -2,6 +2,7 @@ import matplotlib.pyplot as plt
 import statistics as stat
 from math import sqrt
 from RandToken import Rand
+import json
 
 points_x = []
 points_y = []
@@ -67,3 +68,16 @@ print("Median1: {} ------------ Median2: {}".format(median1, median2))
 print("Mode1: {} -------------- Mode2: {}".format(mode1, mode2))
 print("Stdev1: {} ------------- Stdev2: {}".format(stdev1, stdev2))
 plt.show()
+
+f = open("Results.txt", "r")
+jsonstr = f.read()
+f.close()
+
+values = json.loads(jsonstr)
+dic = {"Center": [x, y], "Mean": [mean1, mean2]}
+values += [dic]
+jsonstr = json.dumps(values, indent=4)
+
+f = open("Results.txt", "w")
+f.write(jsonstr)
+f.close()
