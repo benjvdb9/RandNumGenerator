@@ -1,4 +1,5 @@
 from time import time
+from MersenneTwister import Twister
 
 class Rand:
     def __init__(self):
@@ -7,6 +8,7 @@ class Rand:
         self.newSeed()
         self.__rand = self.__seed
 
+    #Crée un nouveau seed en fonction du seed_mode
     def newSeed(self):
         if self.__seed_mode == 1:
             self.milliSeed()
@@ -15,9 +17,13 @@ class Rand:
             self.__rand = self.__seed
         elif self.__seed_mode == 3:
             self.timeSeed()
+            self.__rand = self.__seed
         else:
-            self.__seed = 0
+            self.__seed = 12345678
+            self.__rand = self.__seed
 
+    #Le Seed sera les milisecondes du timer. self.__rand
+    #ne sera
     def milliSeed(self):
         self.__seed = int((time() % 1) * 100000000 // 1)
 
@@ -27,7 +33,7 @@ class Rand:
         self.__seed = time_seed // 10**(seed_length - 8)
 
     def applySteps(self):
-        steps_dict = {1: self.newtonStep}
+        steps_dict = {1: self.newtonStep, 2: self.mersenneTwister}
         for step in self.__steps:
             func = steps_dict[step]
             func()
@@ -40,6 +46,13 @@ class Rand:
         complete = middle ** 2
         middle = (complete % 10**12) // 10**4 #Division efface les 4 derniers chiffres
         self.__rand = middle
+
+    def mersenneTwister(self):
+        twis = Twister()
+        twis.initialize_generator(self.__seed)
+        rand = twis.extract_number()
+        rand = (rand % 10**9) // 10
+        self.__rand = rand
 
     def getSeed(self):
         return self.__seed
