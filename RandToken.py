@@ -31,10 +31,13 @@ class Rand:
             func()
 
     def newtonStep(self):
-        complete = self.__rand ** 2
-        middle = (complete % 10**12) // 10**4 #Modulo garde les 12 derniers chiffres
-        complete = middle ** 2
-        middle = (complete % 10**12) // 10**4 #Division efface les 4 derniers chiffres
+
+        complete = self.__rand ** 2  #mettre le seed au carré
+        # le Modulo 10**12 garde les 12 derniers chiffres et la division entiere par 10**4  efface les 4 derniers chiffres
+        middle = (complete % 10**12) // 10**4
+
+        complete = middle ** 2 #repetition du processus
+        middle = (complete % 10**12) // 10**4
         self.__rand = middle
 
     def getRand(self):
