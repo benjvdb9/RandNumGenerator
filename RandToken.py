@@ -63,7 +63,6 @@ class Rand:
 
     #Application du Mersenne Twister
     def mersenneTwister(self):
-        import pdb;pdb.set_trace()
         if not self.__twister_exist:
             self.__twis = Twister()
             self.__twister_exist = True
